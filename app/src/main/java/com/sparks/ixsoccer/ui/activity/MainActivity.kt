@@ -8,6 +8,7 @@ import com.google.android.material.tabs.TabLayout
 import com.sparks.ixsoccer.R
 import com.sparks.ixsoccer.ui.adapter.SoccerAdapter
 import com.sparks.ixsoccer.util.InjectorUtils
+import com.sparks.ixsoccer.util.XISoccerUtils
 import com.sparks.ixsoccer.viewmodel.SoccerViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -19,8 +20,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         tabLayout = findViewById(R.id.tabLayout)
         viewPager = findViewById(R.id.viewPager)
-        tabLayout.addTab(tabLayout.newTab().setText("Fixtures"))
-        tabLayout.addTab(tabLayout.newTab().setText("Results"))
+        tabLayout.addTab(tabLayout.newTab().setText(XISoccerUtils.FIXTURES))
+        tabLayout.addTab(tabLayout.newTab().setText(XISoccerUtils.RESULTS))
         tabLayout.tabGravity = TabLayout.GRAVITY_FILL
 
         val factory = InjectorUtils.provideSoccerViewModelFactory()

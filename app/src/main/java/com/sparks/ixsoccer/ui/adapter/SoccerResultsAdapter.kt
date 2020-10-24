@@ -7,13 +7,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.sparks.ixsoccer.R
-import com.sparks.ixsoccer.data.datamodel.HeaderItem
 import com.sparks.ixsoccer.data.datamodel.ListItem
 import com.sparks.ixsoccer.data.datamodel.SoccerItem
-import java.text.DateFormat
-import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.ArrayList
 
 
 class SoccerResultsAdapter : SoccerBaseAdapter() {
@@ -38,6 +33,7 @@ class SoccerResultsAdapter : SoccerBaseAdapter() {
     }
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
+        super.onBindViewHolder(viewHolder, position)
         val type = getItemViewType(position)
         if (type == ListItem.TYPE_SOCCER) {
             val soccerItem: SoccerItem = listItem[position] as SoccerItem
