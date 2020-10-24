@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+        <color name="colorPrimary">#254441</color>
+    <color name="colorPrimaryDark">#672222</color>
+    <color name="colorAccent">#D9CAB3</color>
+    <color name="colorLeagueTitle">#663F46</color>
+
+</resources>

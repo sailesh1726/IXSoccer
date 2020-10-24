@@ -1,2 +1,2 @@
 # IXSoccer
-Soccer Fixtures and Reults
+Soccer Fixtures and Results
