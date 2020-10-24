@@ -9,12 +9,4 @@
     <base-config cleartextTrafficPermitted="true">
         <certificates src="system" />
     </base-config>
-    <domain-config cleartextTrafficPermitted="false">
-        <domain includeSubdomains="true">www.ticketmaster.com.au</domain>
-        <domain includeSubdomains="true">www1.ticketmaster.com.au</domain>
-        <domain includeSubdomains="true">m.ticketmaster.com.au</domain>
-    </domain-config>
-    <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">help.ticketmaster.com.au</domain>
-    </domain-config>
 </network-security-config>

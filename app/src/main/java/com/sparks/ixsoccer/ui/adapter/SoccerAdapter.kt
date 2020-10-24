@@ -22,6 +22,7 @@ class SoccerAdapter(
             else -> getItem(position)
         }
     }
+
     override fun getCount(): Int {
         return totalTabs
     }

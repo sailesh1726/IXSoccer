@@ -27,8 +27,10 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, factory).get(SoccerViewModel::class.java)
 
 
-        val adapter = SoccerAdapter(supportFragmentManager,
-            tabLayout.tabCount)
+        val adapter = SoccerAdapter(
+            supportFragmentManager,
+            tabLayout.tabCount
+        )
 
         viewPager.adapter = adapter
         viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
@@ -36,6 +38,7 @@ class MainActivity : AppCompatActivity() {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 viewPager.currentItem = tab.position
             }
+
             override fun onTabUnselected(tab: TabLayout.Tab) {}
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })

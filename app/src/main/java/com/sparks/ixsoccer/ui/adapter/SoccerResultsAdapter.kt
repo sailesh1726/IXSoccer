@@ -16,22 +16,12 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class SoccerResultsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class SoccerResultsAdapter : SoccerBaseAdapter() {
 
-    private var listItem: List<ListItem> = ArrayList()
 
-    class SoccerViewHolder(v: View) : RecyclerView.ViewHolder(v) {
-        val leagueName: TextView = v.findViewById(R.id.leagueName)
-        val stadiumName: TextView = v.findViewById(R.id.stadiumName)
-        val dateTextView: TextView = v.findViewById(R.id.dateTextView)
-        val homeTeamName: TextView = v.findViewById(R.id.homeTeamName)
-        val awayTeamName: TextView = v.findViewById(R.id.awayTeamName)
+    class SoccerViewHolder(v: View) : SoccerBaseViewHolder(v) {
         val homeTeamScore: TextView = v.findViewById(R.id.homeTeamScore)
         val awayTeamScore: TextView = v.findViewById(R.id.awayTeamScore)
-    }
-
-    class HeaderViewHolder(v: View) : RecyclerView.ViewHolder(v) {
-        val name: TextView = v.findViewById(R.id.monthYear)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -47,53 +37,27 @@ class SoccerResultsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
-    override fun getItemCount(): Int {
-        return listItem.size
-    }
-
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
         val type = getItemViewType(position)
-        if (type == ListItem.TYPE_HEADER) {
-            val headerItem = listItem[position] as HeaderItem
-            val holder = viewHolder as HeaderViewHolder
-            holder.name.text=headerItem.monthYear
-        } else {
+        if (type == ListItem.TYPE_SOCCER) {
             val soccerItem: SoccerItem = listItem[position] as SoccerItem
             val holder: SoccerViewHolder = viewHolder as SoccerViewHolder
-            holder.leagueName.text=soccerItem.soccerEvent.competitionStage.competition.name.toUpperCase()
-            holder.stadiumName.text= soccerItem.soccerEvent.venue.name+" | "
-            holder.dateTextView.text=getDateFormatted(soccerItem.soccerEvent.date)
-            holder.homeTeamName.text=soccerItem.soccerEvent.homeTeam.name
-            holder.awayTeamName.text=soccerItem.soccerEvent.awayTeam.name
             holder.homeTeamScore.visibility = View.VISIBLE
             holder.awayTeamScore.visibility = View.VISIBLE
 
-            holder.homeTeamScore.text=soccerItem.soccerEvent.score.home.toString()
-            holder.awayTeamScore.text=soccerItem.soccerEvent.score.away.toString()
+            holder.homeTeamScore.text = soccerItem.soccerEvent.score.home.toString()
+            holder.awayTeamScore.text = soccerItem.soccerEvent.score.away.toString()
 
-            if("home" == soccerItem.soccerEvent.score.winner){
+            if ("home" == soccerItem.soccerEvent.score.winner) {
                 holder.homeTeamScore.setTextColor(Color.BLUE)
                 holder.awayTeamScore.setTextColor(Color.GRAY)
-            }else if("away" == soccerItem.soccerEvent.score.winner){
+            } else if ("away" == soccerItem.soccerEvent.score.winner) {
                 holder.awayTeamScore.setTextColor(Color.BLUE)
                 holder.homeTeamScore.setTextColor(Color.GRAY)
-            }else{
+            } else {
                 holder.awayTeamScore.setTextColor(Color.GRAY)
                 holder.homeTeamScore.setTextColor(Color.GRAY)
             }
         }
-    }
-
-    private fun getDateFormatted(date: Date): String {
-        val fmt: DateFormat = SimpleDateFormat("MMM dd, yyyy 'at' HH:mm", Locale.US)
-        return fmt.format(date)
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return listItem[position].getType()
-    }
-    fun updateResults(list: List<ListItem>) {
-        listItem = list
-        notifyDataSetChanged()
     }
 }

@@ -7,16 +7,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sparks.ixsoccer.R
-import com.sparks.ixsoccer.databinding.FragmentFixturesBinding
-import com.sparks.ixsoccer.databinding.FragmentResultsBinding
+import com.sparks.ixsoccer.databinding.FragmentSoccerDetailsBinding
 import com.sparks.ixsoccer.ui.adapter.SoccerFixturesAdapter
-import com.sparks.ixsoccer.ui.adapter.SoccerResultsAdapter
 import com.sparks.ixsoccer.viewmodel.SoccerViewModel
 
 
-class FixturesFragment : Fragment(R.layout.fragment_fixtures) {
+class FixturesFragment : Fragment(R.layout.fragment_soccer_details) {
     private lateinit var viewModel: SoccerViewModel
-    private var fragmentFixturesBinding: FragmentFixturesBinding? = null
+    private var fragmentFixturesBinding: FragmentSoccerDetailsBinding? = null
     private var viewAdapter: SoccerFixturesAdapter? = null
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -27,14 +25,14 @@ class FixturesFragment : Fragment(R.layout.fragment_fixtures) {
 
         viewModel.fixtures.observe(viewLifecycleOwner, Observer {
             it?.let {
-                viewAdapter?.updateFixtures(it)
+                viewAdapter?.updateList(it)
             }
         })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val binding = FragmentFixturesBinding.bind(view)
+        val binding = FragmentSoccerDetailsBinding.bind(view)
         fragmentFixturesBinding = binding
         setUpUI()
     }

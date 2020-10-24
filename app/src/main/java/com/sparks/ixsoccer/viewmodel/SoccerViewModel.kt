@@ -23,17 +23,18 @@ class SoccerViewModel(soccerRepository: SoccerRepository) : ViewModel() {
         } catch (e: Exception) {
             e.stackTrace
         }
-        val finalList=getItems(fixtureList)
+        val finalList = getItems(fixtureList)
         emit(finalList)
     }
 
     private fun getItems(list: List<SoccerData>): List<ListItem> {
-        val finalList:MutableList<ListItem> = ArrayList<ListItem>()
-        val map: MutableMap<String,MutableList<SoccerData>> = HashMap<String,MutableList<SoccerData>>()
-        for(soccer in list){
+        val finalList: MutableList<ListItem> = ArrayList<ListItem>()
+        val map: MutableMap<String, MutableList<SoccerData>> =
+            HashMap<String, MutableList<SoccerData>>()
+        for (soccer in list) {
             val fmt: DateFormat = SimpleDateFormat("MMMM yyyy", Locale.US)
-            val month: String= fmt.format(soccer.date)
-            if(!map.containsKey(month)){
+            val month: String = fmt.format(soccer.date)
+            if (!map.containsKey(month)) {
                 map[month] = ArrayList<SoccerData>()
             }
             map[month]?.add(soccer)
@@ -42,9 +43,9 @@ class SoccerViewModel(soccerRepository: SoccerRepository) : ViewModel() {
         for (monthYear in map.keys) {
             val header = HeaderItem(monthYear)
             finalList.add(header)
-            val iterator= map[monthYear]?.listIterator()
+            val iterator = map[monthYear]?.listIterator()
             if (iterator != null) {
-                while(iterator.hasNext()){
+                while (iterator.hasNext()) {
                     val item = SoccerItem(iterator.next())
                     finalList.add(item)
                 }
@@ -62,7 +63,7 @@ class SoccerViewModel(soccerRepository: SoccerRepository) : ViewModel() {
 
         }
 
-        val finalList=getItems(resultList)
+        val finalList = getItems(resultList)
         emit(finalList)
     }
 }
