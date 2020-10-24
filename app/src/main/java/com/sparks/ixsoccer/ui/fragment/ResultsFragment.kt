@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.sparks.ixsoccer.R
 import com.sparks.ixsoccer.databinding.FragmentSoccerDetailsBinding
 import com.sparks.ixsoccer.ui.adapter.SoccerResultsAdapter
+import com.sparks.ixsoccer.util.XISoccerUtils
 import com.sparks.ixsoccer.viewmodel.SoccerViewModel
 
 class ResultsFragment : Fragment(R.layout.fragment_soccer_details) {
@@ -35,7 +36,7 @@ class ResultsFragment : Fragment(R.layout.fragment_soccer_details) {
         fragmentSoccerDetailsBinding = binding
         setUpUI()
     }
-
+   private var flag:Boolean = false
     private fun setUpUI() {
         val viewManager = LinearLayoutManager(activity)
         viewAdapter = SoccerResultsAdapter()
@@ -46,6 +47,16 @@ class ResultsFragment : Fragment(R.layout.fragment_soccer_details) {
             // specify an viewAdapter
             adapter = viewAdapter
         }
+
+        fragmentSoccerDetailsBinding?.floatingActionButton?.setOnClickListener {
+            if(flag){
+                flag=false
+                filterListByMonth()
+            }else{
+                flag = true
+                filterListByLeague()
+            }
+        }
     }
 
     override fun onDestroyView() {
@@ -53,5 +64,15 @@ class ResultsFragment : Fragment(R.layout.fragment_soccer_details) {
         // if not needed.
         fragmentSoccerDetailsBinding = null
         super.onDestroyView()
+    }
+
+    private fun filterListByLeague() {
+        if(!viewModel.cacheResultsList.isNullOrEmpty())
+            viewAdapter?.updateList(XISoccerUtils.getListItemsByLeague(viewModel.cacheResultsList))
+    }
+
+    private fun filterListByMonth() {
+        if(!viewModel.cacheResultsList.isNullOrEmpty())
+            viewAdapter?.updateList(XISoccerUtils.getListItems(viewModel.cacheResultsList))
     }
 }

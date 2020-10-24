@@ -9,10 +9,13 @@ import kotlinx.coroutines.Dispatchers
 
 
 class SoccerViewModel(soccerRepository: SoccerRepository) : ViewModel() {
+    var cacheFixtureList:List<SoccerData> = emptyList()
+    var cacheResultsList:List<SoccerData> = emptyList()
     val fixtures = liveData(Dispatchers.IO) {
         var fixtureList: List<SoccerData> = emptyList()
         try {
             fixtureList = soccerRepository.loadSoccerFixtures()
+            cacheFixtureList = fixtureList
         } catch (e: Exception) {
             e.stackTrace
         }
@@ -24,6 +27,7 @@ class SoccerViewModel(soccerRepository: SoccerRepository) : ViewModel() {
         var resultList: List<SoccerData> = emptyList()
         try {
             resultList = soccerRepository.loadSoccerResults()
+            cacheResultsList = resultList
         } catch (e: Exception) {
 
         }
