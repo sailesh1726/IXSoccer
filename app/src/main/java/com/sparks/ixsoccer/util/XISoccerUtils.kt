@@ -7,10 +7,11 @@ import com.sparks.ixsoccer.data.datamodel.SoccerItem
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.Collections.sort
 
 object XISoccerUtils {
-    const val FIXTURES:String = "FIXTURES"
-    const val RESULTS:String = "RESULTS"
+    const val FIXTURES: String = "FIXTURES"
+    const val RESULTS: String = "RESULTS"
     internal fun getDay(date: Date): String {
         val fmt: DateFormat = SimpleDateFormat("EEE", Locale.US)
         return fmt.format(date)
@@ -27,10 +28,10 @@ object XISoccerUtils {
     }
 
     internal fun getListItems(list: List<SoccerData>): List<ListItem> {
-        Collections.sort(list, kotlin.Comparator { t, t2 -> t.date.compareTo(t2.date) })
+        sort(list) { t, t2 -> t.date.compareTo(t2.date) }
         val finalList: MutableList<ListItem> = ArrayList()
         val map: TreeMap<String, MutableList<SoccerData>> =
-            TreeMap(SortByMonth())
+                TreeMap(SortByMonth())
         for (soccer in list) {
             val fmt: DateFormat = SimpleDateFormat("MMMM yyyy", Locale.US)
             val month: String = fmt.format(soccer.date)
@@ -52,14 +53,14 @@ object XISoccerUtils {
             }
         }
 
-        return finalList;
+        return finalList
     }
 
     internal fun getListItemsByLeague(list: List<SoccerData>): List<ListItem> {
-        Collections.sort(list, kotlin.Comparator { t, t2 -> t.date.compareTo(t2.date) })
+        sort(list) { t, t2 -> t.date.compareTo(t2.date) }
         val finalList: MutableList<ListItem> = ArrayList()
         val map: TreeMap<String, MutableList<SoccerData>> =
-            TreeMap()
+                TreeMap()
         for (soccer in list) {
             val leagueName = soccer.competitionStage.competition.name
             if (!map.containsKey(leagueName)) {
@@ -80,7 +81,7 @@ object XISoccerUtils {
             }
         }
 
-        return finalList;
+        return finalList
     }
 
 
