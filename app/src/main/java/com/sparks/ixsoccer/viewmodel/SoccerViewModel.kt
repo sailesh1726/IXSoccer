@@ -16,7 +16,7 @@ class SoccerViewModel(soccerRepository: SoccerRepository) : ViewModel() {
         var finalList: List<ListItem> = emptyList()
         try {
             cacheFixtureList = soccerRepository.loadSoccerFixtures()
-            finalList = XISoccerUtils.getListItems(cacheResultsList)
+            finalList = XISoccerUtils.getListItems(cacheFixtureList)
         } catch (e: Exception) {
             e.stackTrace
         }
